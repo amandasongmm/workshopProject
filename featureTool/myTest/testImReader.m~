@@ -1,0 +1,21 @@
+clear;
+clc;
+imgPath = '../images/testIm/';
+imgType = '*.jpg'; % change based on image type
+images  = dir([imgPath imgType]);
+imagefiles = dir([imgPath imgType]);      
+nfiles = length(imagefiles);    % Number of files found
+images = cell(nfiles,1);
+for ii=1:nfiles
+   currentfilename = [imgPath imagefiles(ii).name];
+   currentimage = imread(currentfilename);
+
+   images{ii} = currentimage;
+end
+imagefiles = struct2cell(imagefiles);
+fileList = struct('trainList',{},'testList',{});
+fileList.trainList = cell(
+fileList.trianList = strcat(imgPath,imagefiles(1,1:6));
+fileList.testList = strcat(imgPath,imagefiles(1,7));
+clearvars -except images fileList
+
