@@ -1,5 +1,5 @@
 function [J, grad] = cofiCostFunc(params, Y, R, num_users, num_movies, ...
-                                  num_features, lambda)
+                                  num_features, lambda,gradFlag)
 %COFICOSTFUNC Collaborative filtering cost function
 %   [J, grad] = COFICOSTFUNC(params, Y, R, num_users, num_movies, ...
 %   num_features, lambda) returns the cost and gradient for the
@@ -41,16 +41,21 @@ Theta_grad = zeros(size(Theta));
 %
 
 % X = n_m * n, Theta = n_u * n, Y = n_m * n_u
+if(~exist('gradFlag', 'var'))
+	gradFlag = 0;
+end
+
 multiTemp = X * Theta'; %  
 J_temp = (multiTemp - Y).^2; 
 J_temp = sum(sum(J_temp .* R)); 
 J = J_temp / 2; 
 J = J + lambda/2 * (sum(sum(Theta.^2)) + sum(sum(X.^2))); 
 
-
-xgrad_temp = X * Theta' - Y; % n_m * n_u
-xgrad_temp = xgrad_temp .* R;  
-X_grad = xgrad_temp * Theta + lambda * X; % n_m * n = (n_m * n_u) * (n_u * n) 
+if (gradFlag == 1)
+    xgrad_temp = X * Theta' - Y; % n_m * n_u
+    xgrad_temp = xgrad_temp .* R;  
+    X_grad = xgrad_temp * Theta + lambda * X; % n_m * n = (n_m * n_u) * (n_u * n) 
+end
 
 tgrad_temp = xgrad_temp'; % n_u * n_m
 Theta_grad = tgrad_temp * X + lambda * Theta; % n_u * n =(n_u * n_m) * (n_m * n)

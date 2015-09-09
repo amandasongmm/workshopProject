@@ -23,8 +23,8 @@ save('psy1Data.mat','psy1Data','fields_name1');
 
 
 %% ================= Part II. Import the second questionaire's data
-[~, txt1, raw0_0] = xlsread('C:\Users\amand_000\Documents\GitHub\workshopProject\psychology-attributes.xlsx','All Data','B1:B33431');
-[~, txt2, raw0_1] = xlsread('C:\Users\amand_000\Documents\GitHub\workshopProject\psychology-attributes.xlsx','All Data','AC1:BB33431');
+[~, txt1, raw0_0] = xlsread('psychology-attributes.xlsx','All Data','B1:B33431');
+[~, txt2, raw0_1] = xlsread('psychology-attributes.xlsx','All Data','AC1:BB33431');
 txt2 = txt2(1,:);
 fields_name2 = [txt1, txt2];
 
