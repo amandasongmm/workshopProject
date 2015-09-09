@@ -13,10 +13,11 @@ raw(R) = {NaN}; % Replace non-numeric cells
 %% Create output variable
 data = reshape([raw{:}],size(raw));
 leaveOut = {'Image #','catch','catchAns','subID','subage','submale','subrace'};
-[~,indexOut] = setdiff(fields_name2,leaveOut);
-psy1FiVal = data(1:end, indexOut);
 fields_name1 = txt(1,2:end);
+[~,indexOut] = setdiff(fields_name1,leaveOut);
 fields_name1 = fields_name1(indexOut);
+psy1FiVal = data(1:end, indexOut);
+
 %% Clear temporary variables
 clearvars -except psy1FiVal fields_name1;
 
