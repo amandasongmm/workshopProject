@@ -14,12 +14,12 @@ lambda = 10; maxItr = 100; options = optimset('GradObj', 'on', 'MaxIter', maxItr
 [num_faces, num_users] = size(Y);
 
 % initialzie X and Theta.
-[num_features, X] = myPack.featureGen('random');
+[num_features, X, gradFlag] = myPack.featureGen('random');
 Theta = randn(num_users, num_features);
 init_params = [X(:);Theta(:)];
 
 %% Train the model
-params = myPack.fmincg (@(t)(myPack.cofiCostFunc(t, trainYnorm, trainSetR, num_users, num_faces, num_features, lambda)), init_params, options);            
+params = myPack.fmincg (@(t)(myPack.cofiCostFunc(t, trainYnorm, trainSetR, num_users, num_faces, num_features, lambda, gradFlag)), init_params, options);            
 
 % Unfold the returned theta back into X and Theta
 X = reshape(params(1:num_faces*num_features), num_faces, num_features);
