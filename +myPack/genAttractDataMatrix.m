@@ -4,7 +4,7 @@
 % R is an indicator matrix, dim = num_face * num_user, where R(i,j) = 1 iif user j gave a rating to face i
 
 clc; clear; 
-load('./rawData/psy2Data.mat');% 33430*27 
+load('../rawData/psy2Data.mat');% 33430*27 
 rawData = psy2Data;
 
 %% clean the data. 
@@ -28,7 +28,7 @@ for curItr = 1 : size(cleanData, 1)
 	R(curImId, curUserId) = 1; 
 end
 R = logical(R);
-save('attractData.mat','Y','R');
+save('../attractData.mat','Y','R');
 
 
 
