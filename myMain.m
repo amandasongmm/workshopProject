@@ -3,7 +3,7 @@ clear; close all; clc;
 
 %% load data matrix
 fprintf('Loading facial attractiveness dataset.\n\n');
-load('attractData.mat');%Y and R
+load('./preprocessedData/attractiveData.mat');%Y and R
 
 %% split test, cross-validation and training set. 
 trainRatio = 0.9; crossRatio = 0.01; testRatio = 0.09;
