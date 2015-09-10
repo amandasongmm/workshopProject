@@ -41,6 +41,8 @@ Theta_grad = zeros(size(Theta));
 %
 
 % X = n_m * n, Theta = n_u * n, Y = n_m * n_u
+
+
 if(~exist('gradFlag', 'var'))
 	gradFlag = 0;
 end

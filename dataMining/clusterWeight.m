@@ -27,5 +27,5 @@ for i = 1:length(maxInd)
     subplot(subNum,subColNum,i);
     imshow(temp);
 end
-figName = strcat('maxResponseFace',int2str(clusterNum),'.jpg');
+figName = sprintf('maxResponseFace%d.jpg',clusterNum);
 saveas(gcf,figName);

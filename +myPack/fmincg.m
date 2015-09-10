@@ -79,7 +79,7 @@ i = i + (length<0);                                            % count epochs?!
 s = -df1;                                        % search direction is steepest
 d1 = -s'*s;                                                 % this is the slope
 z1 = red/(1-d1);                                  % initial step is red/(|s|+1)
-
+count = 0;
 while i < abs(length)                                      % while not finished
   i = i + (length>0);                                      % count iterations?!
 
@@ -145,8 +145,12 @@ while i < abs(length)                                      % while not finished
   end                                                      % end of line search
 
   if success                                         % if line search succeeded
+    count = count +1;
     f1 = f2; fX = [fX' f1]';
-    fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
+    if count == 50
+        fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
+        count = 0;
+    end
     s = (df2'*df2-df1'*df2)/(df1'*df1)*s - df2;      % Polack-Ribiere direction
     tmp = df1; df1 = df2; df2 = tmp;                         % swap derivatives
     d2 = df1'*s;
