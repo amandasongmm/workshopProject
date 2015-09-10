@@ -14,7 +14,6 @@ for curItr = 1 : length(singleAttriList)
     curAttriName = fields_name2{curAttriInd};
     saveName = sprintf('%sData.mat', curAttriName);
     
-    dataMatrixNameList{curItr} = saveName; 
     % clean the data.
     cleanData = rawData(all(~isnan(rawData),2),:);
     
