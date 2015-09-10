@@ -12,13 +12,36 @@ function [num_features, X, gradFlag] = featureGen(method)
 % otherwise, when feature is chosen randomly, we want to learn the feature 
 % by collaborative filtering, it is set to be the corresponding gradient.
 %
-
+if(~exist('method', 'var'))
+	method = 'random';
+end
 gradFlag = 0;
-if method == 'random'
+if strcmp(method ,'random')
+    fprintf('Random initialize features.\n\n');
     num_features = 50; 
     num_faces = 2222; 
     X = randn(num_faces, num_features);
     gradFlag = 1;
+end
+if strcmp(method ,'socialOther')
+    fprintf('Loading other social features.\n\n');
+    load('./rawData/psy2FiVal.mat');
+    leaveOut = {'attractive'};
+    [~,indexOut] = setdiff(fields_name2,leaveOut);
+    X = psy2FiVal(:,indexOut);
+    num_features = size(X,2);
+end
+if strcmp(method ,'sift')
+    fprintf('Loading sift features.\n\n');
+    load('./featureTool/myTest/featureMat/sift20.mat');
+    X = total_features;
+    num_features = size(X,2);
+end
+if strcmp(method ,'socialTotal')
+    fprintf('Loading all social features.\n\n');
+    load('./rawData/psy2FiVal.mat');
+    X = psy2FiVal;
+    num_features = size(X,2);
 end
 
 end

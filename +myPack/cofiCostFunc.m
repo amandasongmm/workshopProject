@@ -49,11 +49,12 @@ multiTemp = X * Theta'; %
 J_temp = (multiTemp - Y).^2; 
 J_temp = sum(sum(J_temp .* R)); 
 J = J_temp / 2; 
-J = J + lambda/2 * (sum(sum(Theta.^2)) + sum(sum(X.^2))); 
+J = J + lambda/2 * sum(sum(Theta.^2)); 
+xgrad_temp = X * Theta' - Y; % n_m * n_u
+xgrad_temp = xgrad_temp .* R;  
 
 if (gradFlag == 1)
-    xgrad_temp = X * Theta' - Y; % n_m * n_u
-    xgrad_temp = xgrad_temp .* R;  
+    J = J + lambda/2 * sum(sum(X.^2)); 
     X_grad = xgrad_temp * Theta + lambda * X; % n_m * n = (n_m * n_u) * (n_u * n) 
 end
 

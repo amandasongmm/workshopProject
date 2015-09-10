@@ -12,14 +12,21 @@ raw(R) = {NaN}; % Replace non-numeric cells
 
 %% Create output variable
 data = reshape([raw{:}],size(raw));
-psy1Data = data; 
+subDataField = {'subID','subage','submale','subrace'};
 fields_name1 = txt(1,2:end);
+[~,subInd,~] = intersect(fields_name1,subDataField);
+psy1Data = data; 
+subData = data(:,subInd);
+[Y,I]=sort(subData(:,1));
+subData=subData(I,:); 
+subData1 = unique(subData,'rows');
+subData1 = subData1(all(~isnan(subData1),2),:);
 
 %% Clear temporary variables
-clearvars -except psy1Data fields_name;
+clearvars -except psy1Data fields_name1 subData1 subDataField;
 
 %% save the data.
-save('psy1Data.mat','psy1Data','fields_name1');
+save('psy1Data.mat','psy1Data','fields_name1','subData1', 'subDataField');
 
 
 %% ================= Part II. Import the second questionaire's data
@@ -39,6 +46,13 @@ raw(R) = {NaN}; % Replace non-numeric cells
 data = reshape([raw{:}],size(raw));
 psy2Data = data(2:end, :);
 
+[~,subInd,~] = intersect(fields_name2,subDataField);
+subData = data(2:end,subInd);
+[Y,I]=sort(subData(:,1));
+subData=subData(I,:); 
+subData2 = unique(subData,'rows');
+subData2 = subData2(all(~isnan(subData2),2),:);
+
 %% Clear temporary variables
-clearvars -except psy2Data fields_name2;
-save('psy2Data.mat','psy2Data', 'fields_name2');
+clearvars -except psy2Data fields_name2 subData2 subDataField;
+save('psy2Data.mat','psy2Data', 'fields_name2','subData2', 'subDataField');

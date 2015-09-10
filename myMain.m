@@ -10,11 +10,13 @@ trainRatio = 0.9; crossRatio = 0.01; testRatio = 0.09;
 [trainYnorm, trainYmean, trainSetR, crossInd, crossGT, testInd, testGT] = myPack.splitSet(Y, R, trainRatio, crossRatio, testRatio);
 
 %% Initialize params
-lambda = 10; maxItr = 200; options = optimset('GradObj', 'on', 'MaxIter', maxItr);
+lambda = 10; maxItr = 1000; options = optimset('GradObj', 'on', 'MaxIter', maxItr);
 [num_faces, num_users] = size(Y);
 
 % initialzie X and Theta.
-[num_features, X, gradFlag] = myPack.featureGen('random');
+%[num_features, X, gradFlag] = myPack.featureGen('random');
+[num_features, X, gradFlag] = myPack.featureGen('socialTotal');
+
 Theta = randn(num_users, num_features);
 init_params = [X(:);Theta(:)];
 
@@ -31,5 +33,5 @@ MSR = myPack.predictionError(X, Theta, R, trainYmean, testInd, testGT);
 fprintf('mean squared error = %4.2f.\n',MSR);
 
 %% Save the learned feature and learned preference for attractiveness
-save('./dataMining/attractivePreference.mat','X','Theta');
+save('./dataMining/attractivePreferenceSocialTotal.mat','X','Theta');
 
