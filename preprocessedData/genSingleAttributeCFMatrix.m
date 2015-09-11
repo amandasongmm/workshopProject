@@ -7,7 +7,7 @@ clc; clear;
 load('../rawData/psy2Data.mat');% 33430*27
 rawData = psy2Data;
 
-singleAttriList = [2:4,7:18,22:27];
+singleAttriList = [2:4,7:18,23:27];
 
 for curItr = 1 : length(singleAttriList)
     curAttriInd = singleAttriList(curItr);
@@ -22,23 +22,36 @@ for curItr = 1 : length(singleAttriList)
     img_num = max(imgID); % 2222
     
     % get user_num
-    userID = cleanData(:,19); % the 17th column stores subject information.
-    user_num = max(userID); % 1274
+    userID = cleanData(:,19); % the 19th column stores subject information.
+
+    
+    userInfoArray = cleanData(:,19:22);   
+    userInfoArray = unique(userInfoArray,'rows');
+    [~,I]=sort(userInfoArray(:,1));
+    userInfoArray=userInfoArray(I,:); 
+    
+    userID_uniqueList = userInfoArray(:,1);
+    user_num = length(userID_uniqueList); % <1274
     
     % singleDataArray
     singleDataArray = cleanData(:,curAttriInd);% the 3rd column stores subject information.    
     Y = zeros(img_num, user_num);
     R = zeros(img_num, user_num);
     
+    
     for curItr = 1 : size(cleanData, 1)
         curImId = imgID(curItr);
-        curUserId = userID(curItr);
+        curUserId = find(userID_uniqueList == userID(curItr));
         Y(curImId, curUserId) = singleDataArray(curItr);
         R(curImId, curUserId) = 1;
     end
     R = logical(R);
-    save(saveName,'Y','R');
+    Y = Y(:,(sum(Y)~=0));
+    R = R(:, (sum(R)~=0));
+    subData = userInfoArray((sum(Y)~=0),:);% rater's data (ID, age, gen, race)
+    save(saveName,'Y','R','subData');
 end
+fprintf('completed. \n');
 
 
 

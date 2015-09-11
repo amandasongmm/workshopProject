@@ -38,7 +38,7 @@ function [X, fX, i] = fmincg(f, X, options, P1, P2, P3, P4, P5)
 % 2) Output display
 %
 fprintf('Staring optimization...\n');
-displayGap = 200;
+displayGap = 10;
 % Read options
 if exist('options', 'var') && ~isempty(options) && isfield(options, 'MaxIter')
     length = options.MaxIter;

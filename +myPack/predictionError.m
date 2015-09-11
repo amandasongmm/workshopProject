@@ -1,4 +1,4 @@
-function MSR = predictionError(X, Theta, R, trainYmean, testInd, testGT)
+function [MSR, prediction, dif] = predictionError(X, Theta, R, trainYmean, testInd, testGT)
 
 [i, j] = ind2sub(size(R), testInd);
 faceFeature = X(i, :);
