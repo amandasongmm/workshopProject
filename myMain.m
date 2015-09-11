@@ -2,7 +2,7 @@
 clear; close all; clc; 
 
 %% Load data matrix
-fprintf('Loading a condense attractiveness dataset.\n\n');
+fprintf('Loading attractiveness dataset.\n\n');
 load('./preprocessedData/attractiveData.mat');%Y and R
 
 %% Split test, cross-validation and training set. 

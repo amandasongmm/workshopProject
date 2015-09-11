@@ -6,7 +6,8 @@ faceNum = 2222;
 attriGroupNum = length(unique(subAttri));
 Y = zeros(faceNum, attriGroupNum);
 R = zeros(faceNum, attriGroupNum);
-
+tempY = zeros(faceNum, attriGroupNum);
+tempR = zeros(faceNum, attriGroupNum);
 for curG = 1 : attriGroupNum
     switch fieldName
         case 'age'
@@ -14,10 +15,20 @@ for curG = 1 : attriGroupNum
         otherwise
             subInCurGroup = subInd(subAttri==(curG-1));
     end
-    R(:,curG) = sum(origR(:,subInCurGroup),2)>0;
-    Y(:,curG) = sum(origY(:,subInCurGroup),2)./sum(origR(:,subInCurGroup),2);
+    tempY(:,curG) = sum(origY(:,subInCurGroup),2);
+    tempR(:,curG) = sum(origR(:,subInCurGroup),2);
 end
-Y(isnan(Y))=0;
+
+for curG = 1 : attriGroupNum
+    for curF = 1 : faceNum
+        if tempY(curF,curG) == 0
+            Y(curF,curG) = 0;
+        else
+            Y(curF, curG) = tempY(curF,curG)/tempR(curF,curG);
+            R(curF, curG) = 1; 
+        end
+    end
+end
 save(sprintf('../preprocessedData/%sYRData.mat',fieldName), 'R','Y');
 
 end

@@ -21,5 +21,3 @@ genDenseYR(subAge, 'age', Y, R, subInd);
 genDenseYR(subGen, 'gender', Y, R, subInd);
 genDenseYR(subRace, 'race', Y, R, subInd);
 
-
-

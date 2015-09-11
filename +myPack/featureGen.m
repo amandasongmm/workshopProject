@@ -29,18 +29,21 @@ switch method
         leaveOut = {'attractive'};
         [~,indexOut] = setdiff(fields_name2,leaveOut);
         X = psy2FiVal(:,indexOut);
+        X = myPack.featureNormalizeAddIntercept(X);
         num_features = size(X,2);
         gradFlag = 0; 
     case  'sift'
         fprintf('Loading sift features.\n\n');
         load('./featureTool/myTest/featureMat/sift20.mat');
         X = total_features;
+        X = myPack.featureNormalizeAddIntercept(X);
         num_features = size(X,2);
         gradFlag = 0; 
     case  'socialTotal'
         fprintf('Loading all social features.\n\n');
         load('./rawData/psy2FiVal.mat');
         X = psy2FiVal;
+        X = myPack.featureNormalizeAddIntercept(X);
         num_features = size(X,2);
         gradFlag = 0; 
     otherwise

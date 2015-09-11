@@ -37,7 +37,8 @@ function [X, fX, i] = fmincg(f, X, options, P1, P2, P3, P4, P5)
 % 1) Function name and argument specifications
 % 2) Output display
 %
-
+fprintf('Staring optimization...\n');
+displayGap = 200;
 % Read options
 if exist('options', 'var') && ~isempty(options) && isfield(options, 'MaxIter')
     length = options.MaxIter;
@@ -138,7 +139,7 @@ while i < abs(length)                                      % while not finished
   if success                                         % if line search succeeded
     count = count +1;
     f1 = f2; fX = [fX' f1]';
-    if count == 100
+    if count == displayGap
         fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
         count = 0;
     end
