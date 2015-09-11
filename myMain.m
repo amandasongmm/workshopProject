@@ -1,11 +1,11 @@
 
 clear; close all; clc; 
 
-%% load data matrix
-fprintf('Loading facial attractiveness dataset.\n\n');
+%% Load data matrix
+fprintf('Loading a condense attractiveness dataset.\n\n');
 load('./preprocessedData/attractiveData.mat');%Y and R
 
-%% split test, cross-validation and training set. 
+%% Split test, cross-validation and training set. 
 trainRatio = 0.9; crossRatio = 0.01; testRatio = 0.09;
 [trainYnorm, trainYmean, trainSetR, crossInd, crossGT, testInd, testGT] = myPack.splitSet(Y, R, trainRatio, crossRatio, testRatio);
 

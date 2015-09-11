@@ -27,21 +27,12 @@ function [X, fX, i] = fmincg(f, X, options, P1, P2, P3, P4, P5)
 % See also: checkgrad 
 %
 % Copyright (C) 2001 and 2002 by Carl Edward Rasmussen. Date 2002-02-13
-%
-%
 % (C) Copyright 1999, 2000 & 2001, Carl Edward Rasmussen
 % 
 % Permission is granted for anyone to copy, use, or modify these
 % programs and accompanying documents for purposes of research or
 % education, provided this copyright notice is retained, and note is
 % made of any changes that have been made.
-% 
-% These programs and documents are distributed without any warranty,
-% express or implied.  As the programs were written for research
-% purposes only, they have not been tested to the degree that would be
-% advisable in any important application.  All use of these programs is
-% entirely at the user's own risk.
-%
 % [ml-class] Changes Made:
 % 1) Function name and argument specifications
 % 2) Output display
@@ -147,7 +138,7 @@ while i < abs(length)                                      % while not finished
   if success                                         % if line search succeeded
     count = count +1;
     f1 = f2; fX = [fX' f1]';
-    if count == 50
+    if count == 100
         fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
         count = 0;
     end

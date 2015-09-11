@@ -11,6 +11,9 @@ Ynorm = zeros(size(Y));
 for i = 1:m
     idx = find(R(i, :) == 1);
     Ymean(i) = mean(Y(i, idx));
+    if isnan(Ymean(i))
+        idx
+    end
     Ynorm(i, idx) = Y(i, idx) - Ymean(i);
 end
 
