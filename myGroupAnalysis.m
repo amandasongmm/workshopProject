@@ -16,6 +16,7 @@ trainRatio = 0.8; crossRatio = 0.1; testRatio = 0.1;
     myPack.splitSet(Y, R, trainRatio, crossRatio, testRatio);
 
 %% Initialize params
+
 maxItr = 3000;
 featureChoice = 'socialOther';%'socialOther','socialTotal'.
 options = optimset('GradObj', 'on', 'MaxIter', maxItr);
@@ -44,8 +45,6 @@ end
 [~,minInd] = min(xValMSR);
 lambda = lambdaArray(minInd);
 fprintf('\n\n\n optimal lambda = %d\n',lambda);
-
-lambda = 5;
 
 %% Train and test with optimal model.
 params = myPack.fmincg (@(t)(myPack.cofiCostFunc(t, X, trainYnorm, trainSetR, num_features, lambda, gradFlag)),...
