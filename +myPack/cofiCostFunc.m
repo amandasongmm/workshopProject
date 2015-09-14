@@ -22,7 +22,8 @@ if gradFlag == 1
     X = reshape(params(1:num_faces*num_features), num_faces, num_features);
     Theta = reshape(params(num_faces*num_features+1:end), num_users, num_features);
 else
-    Theta = reshape(params, num_users, num_features);
+    X = X; 
+    Theta = reshape(params(num_faces*num_features+1:end), num_users, num_features);
 end
 
 multiTemp = X * Theta'; %
@@ -41,7 +42,8 @@ if (gradFlag == 1)
     grad = [X_grad(:); Theta_grad(:)];
 else
     J = J + lambda/2 * sum(sum(Theta(:,2:end).^2));
+    X_grad = zeros(size(X));
     Theta_grad(:,1) = tgrad_temp * X(:,1); % n_u * n =(n_u * n_m) * (n_m * n)%Theta - num_users  x num_features
-    grad = [Theta_grad(:)];
+    grad = [X_grad(:); Theta_grad(:)];
 end
 end

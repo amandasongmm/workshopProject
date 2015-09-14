@@ -27,17 +27,26 @@ function [X, fX, i] = fmincg(f, X, options, P1, P2, P3, P4, P5)
 % See also: checkgrad 
 %
 % Copyright (C) 2001 and 2002 by Carl Edward Rasmussen. Date 2002-02-13
+%
+%
 % (C) Copyright 1999, 2000 & 2001, Carl Edward Rasmussen
 % 
 % Permission is granted for anyone to copy, use, or modify these
 % programs and accompanying documents for purposes of research or
 % education, provided this copyright notice is retained, and note is
 % made of any changes that have been made.
+% 
+% These programs and documents are distributed without any warranty,
+% express or implied.  As the programs were written for research
+% purposes only, they have not been tested to the degree that would be
+% advisable in any important application.  All use of these programs is
+% entirely at the user's own risk.
+%
 % [ml-class] Changes Made:
 % 1) Function name and argument specifications
 % 2) Output display
+%
 
-displayGap = 10;
 % Read options
 if exist('options', 'var') && ~isempty(options) && isfield(options, 'MaxIter')
     length = options.MaxIter;
@@ -70,7 +79,7 @@ i = i + (length<0);                                            % count epochs?!
 s = -df1;                                        % search direction is steepest
 d1 = -s'*s;                                                 % this is the slope
 z1 = red/(1-d1);                                  % initial step is red/(|s|+1)
-count = 0;
+
 while i < abs(length)                                      % while not finished
   i = i + (length>0);                                      % count iterations?!
 
@@ -136,12 +145,8 @@ while i < abs(length)                                      % while not finished
   end                                                      % end of line search
 
   if success                                         % if line search succeeded
-    count = count +1;
     f1 = f2; fX = [fX' f1]';
-    if count == displayGap
-        fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
-        count = 0;
-    end
+    %fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
     s = (df2'*df2-df1'*df2)/(df1'*df1)*s - df2;      % Polack-Ribiere direction
     tmp = df1; df1 = df2; df2 = tmp;                         % swap derivatives
     d2 = df1'*s;
