@@ -1,4 +1,4 @@
-function [J, grad] = cofiCostFunc(params, X, Y, R, num_features, lambda,gradFlag)
+function [J, grad] = cofiCostFunc(params, X, Y, R, num_features,lambda, gradFlag)
 %COFICOSTFUNC Collaborative filtering cost function
 
 %   [J, grad] = cofiCostFunc(params, X, Y, R, num_features, lambda,gradFlag)returns the cost and gradient for the
@@ -13,7 +13,12 @@ function [J, grad] = cofiCostFunc(params, X, Y, R, num_features, lambda,gradFlag
 %   Theta_grad - num_users x num_features matrix, containing the partial derivatives w.r.t. to each element of Theta
 
 if(~exist('gradFlag', 'var'))
+    gradFlag = 0;
     fprintf('Add gradFlag!!!!!\n');
+end
+
+if(~exist('lambda', 'var'))
+    lambda = 0;
 end
 
 [num_faces, num_users] = size(Y);
@@ -44,6 +49,6 @@ else
     J = J + lambda/2 * sum(sum(Theta(:,2:end).^2));
     X_grad = zeros(size(X));
     Theta_grad(:,1) = tgrad_temp * X(:,1); % n_u * n =(n_u * n_m) * (n_m * n)%Theta - num_users  x num_features
-    grad = [X_grad(:); Theta_grad(:)];
+    grad = [Theta_grad(:)];
 end
 end

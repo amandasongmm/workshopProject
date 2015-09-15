@@ -40,7 +40,7 @@ else
             load('./rawData/psy2FiVal.mat');
             X = psy2FiVal;
         otherwise
-            fprintf('Unknown method.Check codes.\n');
+            fprintf('Unknown method. Check codes.\n');
     end
     X = myPack.featureNormalizeAddIntercept(X);
     num_features = size(X,2);
