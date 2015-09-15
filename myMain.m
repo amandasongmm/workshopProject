@@ -39,7 +39,8 @@ num_features = size(X, 2);
 lambda = 50;
 
 %% Train the model
-params = myPack.fmincg (@(t)(myPack.cofiCostFunc(t, trainYnorm, trainSetR, num_users, num_faces, num_features, lambda, gradFlag)), init_params, options);            
+
+params = myPack.fmincg (@(t)(myPack.cofiCostFunc(t, trainYnorm, trainSetR, num_features, lambda, gradFlag)), init_params, options);            
 
 % Unfold the returned theta back into X and Theta
 X = reshape(params(1:num_faces*num_features), num_faces, num_features);

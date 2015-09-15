@@ -30,7 +30,7 @@ num_users = size(trainY,2);
 num_features = size(feature_GT,2);
 
 X = feature_GT;
-Theta = rand(size(user_GT));
+Theta = user_GT;
 
 init_params = [Theta(:)];
 maxItr = 1000;
