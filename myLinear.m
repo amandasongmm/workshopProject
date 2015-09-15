@@ -76,7 +76,7 @@ load('./preprocessedData/faceGenderYR.mat');
 load('./rawData/psy2FiVal');% psy2FiVal
 load('./rawData/genderList.mat');
 socialFeature = psy2FiVal(:,[1,3:end]);
-X = featureNormalizeAddIntercept(socialFeature);
+X = myPack.featureNormalizeAddIntercept(socialFeature);
 femaleX = X(genderList==0,:);
 maleX = X(genderList==1,:);
 
@@ -96,7 +96,7 @@ for curG = 1 : 2
     errorArray = zeros(length(lambdaList),3);
     thetaArray = zeros(length(theta),length(lambdaList));
     for curItr = 1 : length(lambdaList)
-        [theta] = trainLinearReg(X(trainInd,:),Y(trainInd,1),lambdaList(curItr), theta);
+        [theta] = trainLinearReg(X(trainInd,:),Y(trainInd,curG),lambdaList(curItr), theta);
         thetaArray(:,curItr) = theta;
         [sortedTheta, sortInd] = sort(thetaArray(:,curItr),'descend');
         disp([sortedTheta, sortInd]);
@@ -122,7 +122,7 @@ for curG = 1 : 2
     errorArray = zeros(length(lambdaList),3);
     thetaArray = zeros(length(theta),length(lambdaList));
     for curItr = 1 : length(lambdaList)
-        [theta] = trainLinearReg(X(trainInd,:),Y(trainInd,1),lambdaList(curItr), theta);
+        [theta] = trainLinearReg(X(trainInd,:),Y(trainInd,curG),lambdaList(curItr), theta);
         thetaArray(:,curItr) = theta;
         [sortedTheta, sortInd] = sort(thetaArray(:,curItr),'descend');
         disp(lambdaList(curItr));
