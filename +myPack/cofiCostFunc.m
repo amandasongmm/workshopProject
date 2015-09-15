@@ -23,7 +23,7 @@ if gradFlag == 1
     Theta = reshape(params(num_faces*num_features+1:end), num_users, num_features);
 else
     X = X; 
-    Theta = reshape(params(num_faces*num_features+1:end), num_users, num_features);
+    Theta = reshape(params, num_users, num_features);
 end
 
 multiTemp = X * Theta'; %

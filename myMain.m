@@ -10,15 +10,12 @@ trainRatio = 0.9; crossRatio = 0.01; testRatio = 0.09;
 [trainYnorm, trainYmean, trainSetR, crossInd, crossGT, testInd, testGT] = myPack.splitSet(Y, R, trainRatio, crossRatio, testRatio);
 
 %% Initialize params
-maxItr = 1000; options = optimset('GradObj', 'on', 'MaxIter', maxItr);
+maxItr = 3000;
+featureChoice = 'socialOther';%'socialOther','socialTotal'.
+options = optimset('GradObj', 'on', 'MaxIter', maxItr);
 [num_faces, num_users] = size(Y);
-
-% initialzie X and Theta.
-%[num_features, X, gradFlag] = myPack.featureGen('random');
-[num_features, X, gradFlag] = myPack.featureGen('socialOther');
-
-Theta = randn(num_users, num_features);
-init_params = [X(:);Theta(:)];
+[init_params, X, gradFlag] = myPack.featureGen(featureChoice, num_users);
+num_features = size(X, 2);
 
 %% cross-validating parameters!
 % lambdaARR = 1:1:20;
