@@ -12,7 +12,7 @@ trainRatio = 0.9; crossRatio = 0.01; testRatio = 0.09;
 
 %% Initialize params
 maxItr = 500;
-featureChoice = 'socialTotal';%'socialOther','socialTotal'.
+featureChoice = 'socialOther';%'socialOther','socialTotal'.
 options = optimset('GradObj', 'on', 'MaxIter', maxItr);
 [num_faces, num_users] = size(Y);
 [init_params, X, gradFlag] = myPack.featureGen(featureChoice, num_users);
