@@ -1,6 +1,5 @@
 % socialFeaturePCA.m
 
-
 clear; clc; close all; 
 addpath(genpath('./drtoolbox'));
 
@@ -40,9 +39,9 @@ text(Y(:,1)+1,Y(:,2),fieldsFullList);
 % dim_EigValue = intrinsic_dim(socialFeaData, 'EigValue'); % Perform PCA
 % dim_PackingNumbers = intrinsic_dim(socialFeaData, 'PackingNumbers'); % Perform PCA
 % 
-% %% PCA embedding 
-% [mappedX, mapping] = compute_mapping(X, 'PCA');
-% figure, scatter(mappedX(:,1), mappedX(:,2), 5); title('Result of PCA');
-% 
+%% PCA embedding 
+[mappedX, mapping] = compute_mapping(X, 'PCA');
+figure, scatter(mappedX(:,1), mappedX(:,2), 5); title('Result of PCA');
+
 % [mappedX, mapping] = compute_mapping(X, 'Laplacian');
 % figure, scatter(mappedX(:,1), mappedX(:,2), 5); title('Result of Laplacian Eigenmaps'); drawnow
